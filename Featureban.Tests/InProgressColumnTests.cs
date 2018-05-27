@@ -1,5 +1,4 @@
 ﻿using System;
-using Featureban.Domain;
 using Featureban.Tests.DSL;
 using Xunit;
 
