@@ -5,8 +5,8 @@ namespace Featureban.Tests.DSL.Builders
 {
     internal class InProgressColumnBuilder
     {
-        private int wipLimit;
-        private List<Card> _cardsToAdd;
+        private int _wipLimit;
+        private readonly List<Card> _cardsToAdd;
 
         public InProgressColumnBuilder()
         {
@@ -15,7 +15,7 @@ namespace Featureban.Tests.DSL.Builders
         
         public InProgressColumn Please()
         {
-            var column = new InProgressColumn(wipLimit);
+            var column = new InProgressColumn(_wipLimit);
 
             foreach (var card in _cardsToAdd)
             {
@@ -25,7 +25,7 @@ namespace Featureban.Tests.DSL.Builders
             return column;
         }
 
-        public InProgressColumnBuilder WithCardForPlayer(int player)
+        public InProgressColumnBuilder WithCardFor(int player)
         {
             var card = Create.Card.OwnedBy(player).Please();
             _cardsToAdd.Add(card);
@@ -36,6 +36,12 @@ namespace Featureban.Tests.DSL.Builders
         {
             var card = Create.Card.BlockedBy(player).Please();
             _cardsToAdd.Add(card);
+            return this;
+        }
+
+        public InProgressColumnBuilder WithWipLimit(int wipLimit)
+        {
+            _wipLimit = wipLimit;
             return this;
         }
     }

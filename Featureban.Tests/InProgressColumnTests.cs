@@ -33,7 +33,7 @@ namespace Featureban.Tests
         {
             var player = 1;
             var column = Create.InProgressColumn
-                .WithCardForPlayer(player)
+                .WithCardFor(player)
                 .Please();
 
             Assert.True(column.HasUnblockedCardOwnedBy(player));
@@ -45,7 +45,7 @@ namespace Featureban.Tests
             var player1 = 1;
             var player2 = 2;
             var column = Create.InProgressColumn
-                .WithCardForPlayer(player2)
+                .WithCardFor(player2)
                 .Please();
 
             Assert.False(column.HasUnblockedCardOwnedBy(player1));
@@ -67,7 +67,7 @@ namespace Featureban.Tests
         {
             var player = 1;
             var column = Create.InProgressColumn
-                .WithCardForPlayer(player)
+                .WithCardFor(player)
                 .Please();
 
             var extractedCard = column.ExtractCardOwnedBy(player);
@@ -84,7 +84,7 @@ namespace Featureban.Tests
             var player1 = 1;
             var player2 = 2;
             var column = Create.InProgressColumn
-                .WithCardForPlayer(player2)
+                .WithCardFor(player2)
                 .Please();
 
             Assert.Throws<InvalidOperationException>(() => column.ExtractCardOwnedBy(player1));
@@ -131,7 +131,7 @@ namespace Featureban.Tests
         {
             var player = 1;
             var column = Create.InProgressColumn
-                .WithCardForPlayer(player)
+                .WithCardFor(player)
                 .Please();
 
             Assert.False(column.HasBlockedCardOwnedBy(player));
@@ -165,7 +165,7 @@ namespace Featureban.Tests
         {
             var player = 1;
             var column = Create.InProgressColumn
-                .WithCardForPlayer(player)
+                .WithCardFor(player)
                 .Please();
 
             column.BlockCardOwnedBy(player);
@@ -181,6 +181,38 @@ namespace Featureban.Tests
                 .Please();
 
             Assert.Throws<InvalidOperationException>(() => column.BlockCardOwnedBy(player));
+        }
+
+        [Fact]
+        public void HasPlaceForCard_ReturnsTrue_WhenWipLimitHasNotBeenReached()
+        {
+            var column = Create.InProgressColumn
+                .WithWipLimit(1)
+                .Please();
+            
+            Assert.True(column.HasPlaceForCard());
+        }
+        
+        [Fact]
+        public void HasPlaceForCard_ReturnsTrue_WhenWipLimitIsZero()
+        {
+            var column = Create.InProgressColumn
+                .WithWipLimit(0)
+                .Please();
+            
+            Assert.True(column.HasPlaceForCard());
+        }
+        
+        [Fact]
+        public void HasPlaceForCard_ReturnsFalse_WhenWipLimitHasBeenReached()
+        {
+            var player = 1;
+            var column = Create.InProgressColumn
+                .WithWipLimit(1)
+                .WithCardFor(player)
+                .Please();
+            
+            Assert.False(column.HasPlaceForCard());
         }
     }
 }

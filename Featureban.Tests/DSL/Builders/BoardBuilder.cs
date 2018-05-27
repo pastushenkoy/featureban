@@ -9,7 +9,7 @@ namespace Featureban.Tests.DSL.Builders
         private int _developmentWipLimit;
         private int _testingWipLimit;
         
-        private List<Card> _developmentCards = new List<Card>();
+        private readonly List<Card> _developmentCards = new List<Card>();
         private readonly List<Card> _testingCards = new List<Card>();
         
         public BoardTestable Please()

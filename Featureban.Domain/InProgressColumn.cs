@@ -70,5 +70,10 @@ namespace Featureban.Domain
 
             cardToBlock.Block();
         }
+
+        public bool HasPlaceForCard()
+        {
+            return _wipLimit == 0 || CardCount < _wipLimit;
+        }
     }
 }
