@@ -8,9 +8,12 @@ namespace Featureban.Tests
     public class InProgressColumnTests
     {
         [Fact]
-        public void AddCard_AddsCard()
+        public void AddCard_AddsCard_WhenWipLimitHasNotBeenReached()
         {
-            var column = Create.InProgressColumn.Please();
+            var column = Create
+                .InProgressColumn
+                .WithWipLimit(1)
+                .Please();
             
             column.AddCard(Create.Card.Please());
             
@@ -18,7 +21,33 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void AddAlreadyAddedCard_ThrowsException()
+        public void AddCard_AddsCard_WhenWipLimitIsZero()
+        {
+            var column = Create
+                .InProgressColumn
+                .WithWipLimit(0)
+                .Please();
+            
+            column.AddCard(Create.Card.Please());
+            
+            Assert.Equal(1, column.CardCount);
+        }
+
+        [Fact]
+        public void AddCard_ThrowsException_WhenWipLimitHasBeenReached()
+        {
+            var player = 2;
+            var column = Create
+                .InProgressColumn
+                .WithWipLimit(1)
+                .WithCardFor(player)
+                .Please();
+            
+            Assert.Throws<InvalidOperationException>(() => column.AddCard(Create.Card.Please()));
+        }
+
+        [Fact]
+        public void AddCard_ThrowsException_WhenTryToAddAlreadyAddedCard()
         {
             var column = Create.InProgressColumn.Please();
             var card = Create.Card.Please();
