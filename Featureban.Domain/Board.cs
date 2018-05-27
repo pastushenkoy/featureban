@@ -57,6 +57,12 @@
 
         public bool TryBlockCardOwnedBy(int player)
         {
+            if (_testingColumn.HasUnblockedCardOwnedBy(player))
+            {
+                _testingColumn.BlockCardOwnedBy(player);
+                return true;
+            }
+
             if (_developmentColumn.HasUnblockedCardOwnedBy(player))
             {
                 _developmentColumn.BlockCardOwnedBy(player);

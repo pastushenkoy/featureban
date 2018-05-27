@@ -124,5 +124,21 @@ namespace Featureban.Tests
             Assert.True(result);
             board.AssertHasBlockedCardInDevelopmentFor(player);
         }
+        
+        [Fact]
+        public void PlayerHasUnblockedCardsInDevelopmentAndInTesting_BlockCardOwnedBy_BlocksCardInTesting()
+        {
+            var player = 1;
+            
+            var board = Create.Board
+                .WithCardInDevelopmentOwnedBy(player)
+                .WithCardInTestingOwnedBy(player)
+                .Please();
+
+            var result = board.TryBlockCardOwnedBy(player);
+            
+            Assert.True(result);
+            board.AssertHasBlockedCardInTestingFor(player);
+        }
     }
 }

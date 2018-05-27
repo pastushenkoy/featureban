@@ -58,5 +58,10 @@ namespace Featureban.Tests.DSL.Helpers
         {
             Assert.True(_testingColumn.HasUnblockedCardOwnedBy(player));
         }
+
+        public void AssertHasBlockedCardInTestingFor(int player)
+        {
+            Assert.True(_testingColumn.HasBlockedCardOwnedBy(player));
+        }
     }
 }
