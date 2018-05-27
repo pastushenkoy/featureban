@@ -16,19 +16,5 @@ namespace Featureban.Tests
             
             int throughout = game.Throughout;
         }
-
-        [Fact]
-        public void GameGeneratesResults()
-        {
-            var game = Create.Game
-                .WithAlwaysTrueCoin()
-                .WithPlayers(2)
-                .Please();
-
-            game.NextDay();
-            
-            game.AssertAllCoinResultsAreTrue();
-        }
-
     }
 }
