@@ -9,6 +9,8 @@ namespace Featureban.Tests
         public void ExecuteGame()
         {
             var game = new Game();
+            game.NextDay();
+            int throughout = game.Throughout;
         }
     }
 }
