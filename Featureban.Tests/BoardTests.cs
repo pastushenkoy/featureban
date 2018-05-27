@@ -96,5 +96,18 @@ namespace Featureban.Tests
             board.AssertHasBlockedCardInDevelopmentFor(player);
             board.AssertHasUnblockedCardInTestingFor(player);
         }
+        
+        [Fact]
+        public void TryTakeNewCardForPlayer_TakesNewCard()
+        {
+            var player = 1;
+            
+            var board = Create.Board
+                .Please();
+
+            var result = board.TryTakeNewCardFor(player);
+            Assert.True(result);
+            board.AssertHasUnblockedCardInDevelopmentFor(player);
+        }
     }
 }

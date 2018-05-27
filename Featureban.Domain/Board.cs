@@ -51,7 +51,8 @@
 
         public bool TryTakeNewCardFor(int player)
         {
-            throw new System.NotImplementedException();
+            _developmentColumn.AddCard(new Card(player));
+            return true;
         }
 
         public void BlockCardOwnedByPlayer(int player)
