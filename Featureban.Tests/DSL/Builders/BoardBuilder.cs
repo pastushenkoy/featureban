@@ -16,9 +16,15 @@ namespace Featureban.Tests.DSL.Builders
             return board;
         }
 
-        public BoardBuilder AddCardIntoTestingFor(int player)
+        public BoardBuilder WithCardInTestingOwnedBy(int player)
         {
             board.AddCardIntoTestingFor(player);
+            return this;
+        }
+
+        public BoardBuilder WithCardInDevelopmentOwnedBy(int player)
+        {
+            board.AddCardIntoDevelopmentFor(player);
             return this;
         }
     }

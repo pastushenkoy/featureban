@@ -4,21 +4,21 @@
     {
         protected InProgressColumn _developmentColumn;
         protected InProgressColumn _testingColumn;
-        protected DoneColumn _doneColumn;
 
+        public int DoneCardsCount { get; private set; }
+        
         public Board()
         {
             _developmentColumn = new InProgressColumn();
             _testingColumn = new InProgressColumn();
-            _doneColumn = new DoneColumn();
         }
         
         public bool TryMoveCardOwnedBy(int player)
         {
             if (_testingColumn.HasUnblockedCardOwnedBy(player))
             {
-                var card = _testingColumn.ExtractCardOwnedBy(player);
-                _doneColumn.AddCard(card);
+                _testingColumn.ExtractCardOwnedBy(player);
+                DoneCardsCount++;
                 return true;
             }
 
