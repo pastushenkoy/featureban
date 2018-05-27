@@ -13,7 +13,7 @@ namespace Featureban.Tests
                 .WithPlayers(2)
                 .Please();
 
-            game.NextDay();
+            game.ExecuteGenerateCoinResults();
             
             game.AssertAllCoinResultsAreTrue();
         }

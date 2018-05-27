@@ -13,5 +13,10 @@ namespace Featureban.Tests.DSL.Helpers
         {
             Assert.All(_coinResults, Assert.True);
         }
+
+        public void ExecuteGenerateCoinResults()
+        {
+            GenerateCoinResults();
+        }
     }
 }
