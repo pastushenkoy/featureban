@@ -13,11 +13,5 @@ namespace Featureban.Tests
             int throughout = game.Throughout;
         }
 
-        [Fact]
-        public void GameCreatesPlayers()
-        {
-            var game = new Game(2);
-            Assert.Equal(2, game.PlayerCount);
-        }
     }
 }

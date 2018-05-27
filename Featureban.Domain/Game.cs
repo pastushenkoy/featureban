@@ -4,24 +4,19 @@ namespace Featureban.Domain
 {
     public class Game
     {
-        private Player[] _players;
+        private int _playerCount;
         
         public Game(int playerCount)
         {
-            _players = new Player[playerCount];
-            for (var i = 0; i < playerCount; i++)
-            {
-                _players[i] = new Player();
-            }
+            _playerCount = playerCount;
         }
         
         public void NextDay()
         {
-            
         }
 
         public int Throughout { get; }
 
-        public int PlayerCount => _players.Length;
+        public int PlayerCount => _playerCount;
     }
 }
