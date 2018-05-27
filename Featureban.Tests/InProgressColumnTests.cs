@@ -54,11 +54,11 @@ namespace Featureban.Tests
             
             column.AddCard(card);
 
-            Assert.Throws<InvalidOperationException>(() => column.AddCard(card));
+            Assert.Throws<ArgumentException>(() => column.AddCard(card));
         }
 
         [Fact]
-        public void UnblockedCardOwnedByPlayerIsInColumn_HasUnblockedCardOwnedByPlayer_ReturnsTrue()
+        public void HasUnblockedCardOwnedByPlayer_ReturnsTrue_WhenUnblockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -69,7 +69,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void UnblockedCardOwnedByAnotherPlayerIsInColumn_HasUnblockedCardOwnedByPlayer_ReturnsFalse()
+        public void HasUnblockedCardOwnedByPlayer_ReturnsFalse_WhenUnblockedCardOwnedByAnotherPlayerIsInColumn()
         {
             var player1 = 1;
             var player2 = 2;
@@ -81,7 +81,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void BlockedCardOwnedByPlayerIsInColumn_HasUnblockedCardOwnedByPlayer_ReturnsFalse()
+        public void HasUnblockedCardOwnedByPlayer_ReturnsFalse_WhenBlockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -92,7 +92,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void UnbockedCardOwnedByPlayerIsInColumn_ExtractCardOwnedBy_ExtractsCard()
+        public void ExtractCardOwnedBy_ExtractsCard_WhenUnbockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -108,7 +108,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void UnblockedCardOwnedByAnotherPlayerIsInColumn_ExtractCardOwnedBy_ThrowsException()
+        public void ExtractCardOwnedBy_ThrowsException_WhenUnblockedCardOwnedByAnotherPlayerIsInColumn()
         {
             var player1 = 1;
             var player2 = 2;
@@ -121,7 +121,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void BlockedCardOwnedByPlayerIsInColumn_ExtractCardOwnedBy_ThrowsException()
+        public void ExtractCardOwnedBy_ThrowsException_WhenBlockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -133,7 +133,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void BlockedCardOwnedByPlayerIsInColumn_HasBlockedCardOwnedByPlayer_ReturnsTrue()
+        public void HasBlockedCardOwnedByPlayer_ReturnsTrue_WhenBlockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -144,7 +144,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void BlockedCardOwnedByAnotherPlayerIsInColumn_HasBlockedCardOwnedByPlayer_ReturnsFalse()
+        public void HasBlockedCardOwnedByPlayer_ReturnsFalse_WhenBlockedCardOwnedByAnotherPlayerIsInColumn()
         {
             var player1 = 1;
             var player2 = 2;
@@ -156,7 +156,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void UnblockedCardOwnedByPlayerIsInColumn_HasBlockedCardOwnedByPlayer_ReturnsFalse()
+        public void HasBlockedCardOwnedByPlayer_ReturnsFalse_WhenUnblockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -167,7 +167,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void BlockedCardOwnedByPlayerIsInColumn_UnblockCardOwnedBy_UnblocksCard()
+        public void UnblockCardOwnedBy_UnblocksCard_WhenBlockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -180,7 +180,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void BlockedCardOwnedByPlayerNotInColumn_UnblockCardOwnedBy_ThrowsException()
+        public void UnblockCardOwnedBy_ThrowsException_WhenBlockedCardOwnedByPlayerNotInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -190,7 +190,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void UnblockedCardOwnedByPlayerIsInColumn_BlockCardOwnedBy_BlocksCard()
+        public void BlockCardOwnedBy_BlocksCard_WhenUnblockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -203,7 +203,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void BlockedCardOwnedByPlayerNotInColumn_BlockCardOwnedBy_ThrowsException()
+        public void BlockCardOwnedBy_ThrowsException_BlockedCardOwnedByPlayerNotInColumn()
         {
             var player = 1;
             var column = Create.InProgressColumn
