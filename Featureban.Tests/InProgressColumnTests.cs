@@ -138,7 +138,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void UnblockedCardOwnedByPlayerIsInColumn_UnblockCardOwnedBy_UnblocksCard()
+        public void BlockedCardOwnedByPlayerIsInColumn_UnblockCardOwnedBy_UnblocksCard()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -151,13 +151,36 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void UnblockedCardOwnedByPlayerNotInColumn_UnblockCardOwnedBy_ThrowsException()
+        public void BlockedCardOwnedByPlayerNotInColumn_UnblockCardOwnedBy_ThrowsException()
         {
             var player = 1;
             var column = Create.InProgressColumn
                 .Please();
 
             Assert.Throws<InvalidOperationException>(() => column.UnblockCardOwnedBy(player));
+        }
+        
+        [Fact]
+        public void UnblockedCardOwnedByPlayerIsInColumn_BlockCardOwnedBy_BlocksCard()
+        {
+            var player = 1;
+            var column = Create.InProgressColumn
+                .WithCardForPlayer(player)
+                .Please();
+
+            column.BlockCardOwnedBy(player);
+
+            Assert.True(column.HasBlockedCardOwnedBy(player));
+        }
+
+        [Fact]
+        public void BlockedCardOwnedByPlayerNotInColumn_BlockCardOwnedBy_ThrowsException()
+        {
+            var player = 1;
+            var column = Create.InProgressColumn
+                .Please();
+
+            Assert.Throws<InvalidOperationException>(() => column.BlockCardOwnedBy(player));
         }
     }
 }

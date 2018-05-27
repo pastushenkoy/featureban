@@ -55,9 +55,15 @@
             return true;
         }
 
-        public void BlockCardOwnedByPlayer(int player)
+        public bool TryBlockCardOwnedBy(int player)
         {
-            throw new System.NotImplementedException();
+            if (_developmentColumn.HasUnblockedCardOwnedBy(player))
+            {
+                _developmentColumn.BlockCardOwnedBy(player);
+                return true;
+            }
+
+            return false;
         }
     }
 }

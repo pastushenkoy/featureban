@@ -57,5 +57,16 @@ namespace Featureban.Domain
 
             cardToUnblock.Unblock();
         }
+
+        public void BlockCardOwnedBy(int player)
+        {
+            var cardToBlock = _cards.FirstOrDefault(card => !card.Blocked && card.Player == player);
+            if (cardToBlock == null)
+            {
+                throw new InvalidOperationException($"Can not get unblocked card for player {player}");
+            }
+
+            cardToBlock.Block();
+        }
     }
 }

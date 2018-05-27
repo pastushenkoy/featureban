@@ -50,7 +50,7 @@ namespace Featureban.Domain
                 }
                 else
                 {
-                    _board.BlockCardOwnedByPlayer(player);
+                    _board.TryBlockCardOwnedBy(player);
                     _board.TryTakeNewCardFor(player);
                 }
 
