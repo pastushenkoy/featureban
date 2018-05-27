@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using Featureban.Domain;
+using Featureban.Tests.DSL;
 
 namespace Featureban.Tests
 {
@@ -8,9 +9,25 @@ namespace Featureban.Tests
         [Fact]
         public void ExecuteGame()
         {
-            var game = new Game(2);
+            Coin coin = new Coin();
+            
+            var game = new Game(2, coin);
             game.NextDay();
+            
             int throughout = game.Throughout;
+        }
+
+        [Fact]
+        public void GameGeneratesResults()
+        {
+            var game = Create.Game
+                .WithAlwaysTrueCoin()
+                .WithPlayers(2)
+                .Please();
+
+            game.NextDay();
+            
+            game.AssertAllCoinResultsAreTrue();
         }
 
     }
