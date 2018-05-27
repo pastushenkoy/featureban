@@ -29,7 +29,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void UnbockedCardOwnedByPlayerIsInColumn_HasUnblockedCardOwnedByPlayer_ReturnsTrue()
+        public void UnblockedCardOwnedByPlayerIsInColumn_HasUnblockedCardOwnedByPlayer_ReturnsTrue()
         {
             var player = 1;
             var column = Create.InProgressColumn
@@ -101,6 +101,40 @@ namespace Featureban.Tests
 
             Assert.Throws<InvalidOperationException>(() => column.ExtractCardOwnedBy(player));
             Assert.Equal(1, column.CardCount);
+        }
+        
+        [Fact]
+        public void BlockedCardOwnedByPlayerIsInColumn_HasBlockedCardOwnedByPlayer_ReturnsTrue()
+        {
+            var player = 1;
+            var column = Create.InProgressColumn
+                .WithCardBlockedByPlayer(player)
+                .Please();
+
+            Assert.True(column.HasBlockedCardOwnedBy(player));
+        }
+        
+        [Fact]
+        public void BlockedCardOwnedByAnotherPlayerIsInColumn_HasBlockedCardOwnedByPlayer_ReturnsFalse()
+        {
+            var player1 = 1;
+            var player2 = 2;
+            var column = Create.InProgressColumn
+                .WithCardBlockedByPlayer(player2)
+                .Please();
+
+            Assert.False(column.HasBlockedCardOwnedBy(player1));
+        }
+
+        [Fact]
+        public void UnblockedCardOwnedByPlayerIsInColumn_HasUnblockedCardOwnedByPlayer_ReturnsFalse()
+        {
+            var player = 1;
+            var column = Create.InProgressColumn
+                .WithCardForPlayer(player)
+                .Please();
+
+            Assert.False(column.HasBlockedCardOwnedBy(player));
         }
     }
 }

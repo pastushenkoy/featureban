@@ -9,8 +9,8 @@ namespace Featureban.Domain
         private readonly Coin _coin;
 
         protected readonly bool[] _coinResults;
+        private readonly Board _board;
         private int _savedWins;
-        private Board board;
 
         public int Throughout { get; }
 
@@ -23,6 +23,8 @@ namespace Featureban.Domain
             
             _playerCount = playerCount;
             _coinResults = new bool[playerCount];
+            
+            _board = new Board();
         }
 
         public void NextDay()
@@ -39,17 +41,17 @@ namespace Featureban.Domain
             {
                 if (Won(player))
                 {
-                    if (!board.TryMoveCardOwnedBy(player)
-                        && !board.TryUnblockCardOwnedBy(player)
-                        && !board.TryTakeNewCardFor(player))
+                    if (!_board.TryMoveCardOwnedBy(player)
+                        && !_board.TryUnblockCardOwnedBy(player)
+                        && !_board.TryTakeNewCardFor(player))
                     {
                         SaveWinForNextPlayer();
                     }
                 }
                 else
                 {
-                    board.BlockCardOwnedByPlayer(player);
-                    board.TryTakeNewCardFor(player);
+                    _board.BlockCardOwnedByPlayer(player);
+                    _board.TryTakeNewCardFor(player);
                 }
 
             }

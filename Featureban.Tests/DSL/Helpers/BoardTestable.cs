@@ -15,6 +15,11 @@ namespace Featureban.Tests.DSL.Helpers
             _developmentColumn.AddCard(Create.Card.OwnedBy(player).Please());
         }
 
+        public void AddBlockedCardIntoDevelopmentFor(int player)
+        {
+            _developmentColumn.AddCard(Create.Card.BlockedBy(player).Please());
+        }
+
         public void AssertAllColumnsAreEmpty()
         {
             Assert.Equal(0, _developmentColumn.CardCount);
@@ -32,6 +37,11 @@ namespace Featureban.Tests.DSL.Helpers
         {
             Assert.Equal(0, _developmentColumn.CardCount);
             Assert.Equal(1, _testingColumn.CardCount);
+        }
+
+        public void AssertHasUnblockedCardInDevelopmentFor(int player)
+        {
+            Assert.True(_developmentColumn.HasUnblockedCardOwnedBy(player));
         }
     }
 }

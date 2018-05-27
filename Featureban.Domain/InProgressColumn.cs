@@ -6,7 +6,7 @@ namespace Featureban.Domain
 {
     internal class InProgressColumn
     {
-        private List<Card> _cards;
+        private readonly List<Card> _cards;
 
         public InProgressColumn()
         {
@@ -40,6 +40,16 @@ namespace Featureban.Domain
             }
             
             _cards.Add(card);
+        }
+
+        public bool HasBlockedCardOwnedBy(int player)
+        {
+            return _cards.Any(card => card.Blocked && card.Player == player);
+        }
+
+        public void UnblockCardOwnedBy(int player)
+        {
+            throw new NotImplementedException();
         }
     }
 }

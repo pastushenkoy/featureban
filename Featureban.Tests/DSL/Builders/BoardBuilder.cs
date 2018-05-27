@@ -27,5 +27,11 @@ namespace Featureban.Tests.DSL.Builders
             board.AddCardIntoDevelopmentFor(player);
             return this;
         }
+
+        public BoardBuilder WithBlockedCardInDevelopmentOwnedBy(int player)
+        {
+            board.AddBlockedCardIntoDevelopmentFor(player);
+            return this;
+        }
     }
 }

@@ -48,5 +48,36 @@ namespace Featureban.Tests
             Assert.False(result);
             board.AssertAllColumnsAreEmpty();
         }
+        
+        [Fact]
+        public void PlayersCardsAreInTestingAndDevelopment_TryMoveCardOwnedBy_MovesCardFromTestingToDone()
+        {
+            var player = 1;
+            
+            var board = Create.Board
+                .WithCardInDevelopmentOwnedBy(player)
+                .WithCardInTestingOwnedBy(player)
+                .Please();
+            
+            var result = board.TryMoveCardOwnedBy(player);
+            
+            Assert.True(result);
+            board.AssertCardFromTestingMovedToDone();
+        }
+
+        [Fact(Skip = "Not implemented yet")]
+        public void PlayersBlockedCardIsInDevelopment_TryUnblockCardOwnedBy_UnblocksCard()
+        {
+            var player = 1;
+            
+            var board = Create.Board
+                .WithBlockedCardInDevelopmentOwnedBy(player)
+                .Please();
+            
+            var result = board.TryUnblockCardOwnedBy(player);
+            
+            Assert.True(result);
+            board.AssertHasUnblockedCardInDevelopmentFor(player);
+        }
     }
 }

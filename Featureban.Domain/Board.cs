@@ -2,8 +2,8 @@
 {
     internal class Board
     {
-        protected InProgressColumn _developmentColumn;
-        protected InProgressColumn _testingColumn;
+        protected readonly InProgressColumn _developmentColumn;
+        protected readonly InProgressColumn _testingColumn;
 
         public int DoneCardsCount { get; private set; }
         
@@ -34,7 +34,13 @@
 
         public bool TryUnblockCardOwnedBy(int player)
         {
-            throw new System.NotImplementedException();
+            if (!_developmentColumn.HasBlockedCardOwnedBy(player))
+            {
+                return false;
+            }
+            
+            _developmentColumn.UnblockCardOwnedBy(player);
+            return true;
         }
 
         public bool TryTakeNewCardFor(int player)
