@@ -8,9 +8,16 @@ namespace Featureban.Tests
         [Fact]
         public void ExecuteGame()
         {
-            var game = new Game();
+            var game = new Game(2);
             game.NextDay();
             int throughout = game.Throughout;
+        }
+
+        [Fact]
+        public void GameCreatesPlayers()
+        {
+            var game = new Game(2);
+            Assert.Equal(2, game.PlayerCount);
         }
     }
 }
