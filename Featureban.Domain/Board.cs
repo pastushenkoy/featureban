@@ -34,13 +34,19 @@
 
         public bool TryUnblockCardOwnedBy(int player)
         {
-            if (!_developmentColumn.HasBlockedCardOwnedBy(player))
+            if (_testingColumn.HasBlockedCardOwnedBy(player))
             {
-                return false;
+                _testingColumn.UnblockCardOwnedBy(player);
+                return true;
             }
             
-            _developmentColumn.UnblockCardOwnedBy(player);
-            return true;
+            if (_developmentColumn.HasBlockedCardOwnedBy(player))
+            {
+                _developmentColumn.UnblockCardOwnedBy(player);
+                return true;
+            }
+            
+            return false;
         }
 
         public bool TryTakeNewCardFor(int player)

@@ -65,7 +65,7 @@ namespace Featureban.Tests
             board.AssertCardFromTestingMovedToDone();
         }
 
-        [Fact(Skip = "Not implemented yet")]
+        [Fact]
         public void PlayersBlockedCardIsInDevelopment_TryUnblockCardOwnedBy_UnblocksCard()
         {
             var player = 1;
@@ -78,6 +78,23 @@ namespace Featureban.Tests
             
             Assert.True(result);
             board.AssertHasUnblockedCardInDevelopmentFor(player);
+        }
+        
+        [Fact]
+        public void PlayersBlockedCardsAreInTestingAndDevelopment_TryUnblockCardOwnedBy_UnblocksCardInTesting()
+        {
+            var player = 1;
+            
+            var board = Create.Board
+                .WithBlockedCardInDevelopmentOwnedBy(player)
+                .WithBlockedCardInTestingOwnedBy(player)
+                .Please();
+            
+            var result = board.TryUnblockCardOwnedBy(player);
+            
+            Assert.True(result);
+            board.AssertHasBlockedCardInDevelopmentFor(player);
+            board.AssertHasUnblockedCardInTestingFor(player);
         }
     }
 }
