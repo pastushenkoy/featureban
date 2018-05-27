@@ -2,18 +2,18 @@
 {
     public class Game
     {
-        private readonly Coin _coin;
+        private readonly ICoin _coin;
 
         protected readonly bool[] _coinResults;
         private readonly Board _board;
         private int _savedWins;
 
-        public int Throughout { get; }
+        public int Throughout => _board.DoneCardsCount;
 
         private int _playerCount { get; }
 
         
-        public Game(int playerCount, Coin coin, int developmentWipLimit, int testingWipLimit)
+        public Game(int playerCount, ICoin coin, int developmentWipLimit, int testingWipLimit)
         {
             _coin = coin;
             

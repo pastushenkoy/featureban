@@ -48,6 +48,11 @@ namespace Featureban.Tests.DSL.Helpers
             Assert.True(_testingColumn.HasBlockedCardOwnedBy(player));
         }
 
+        public void AssertInDevelopmentHasCardCount(int cardCount)
+        {
+            Assert.Equal(cardCount, _developmentColumn.CardCount);
+        }
+
         public void AddCardIntoDevelopment(Card card)
         {
             _developmentColumn.AddCard(card);

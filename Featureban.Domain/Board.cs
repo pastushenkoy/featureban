@@ -22,7 +22,7 @@
                 return true;
             }
 
-            if (_developmentColumn.HasUnblockedCardOwnedBy(player))
+            if (_developmentColumn.HasUnblockedCardOwnedBy(player) && _testingColumn.HasPlaceForCard())
             {
                 var card = _developmentColumn.ExtractCardOwnedBy(player);
                 _testingColumn.AddCard(card);
@@ -51,8 +51,13 @@
 
         public bool TryTakeNewCardFor(int player)
         {
-            _developmentColumn.AddCard(new Card(player));
-            return true;
+            if (_developmentColumn.HasPlaceForCard())
+            {
+                _developmentColumn.AddCard(new Card(player));
+                return true;
+            }
+
+            return false;
         }
 
         public bool TryBlockCardOwnedBy(int player)

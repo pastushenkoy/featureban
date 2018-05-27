@@ -1,4 +1,5 @@
-﻿using Featureban.Tests.DSL;
+﻿using System;
+using Featureban.Tests.DSL;
 using Xunit;
 
 namespace Featureban.Tests
@@ -66,6 +67,24 @@ namespace Featureban.Tests
         }
 
         [Fact]
+        public void TryMoveCardOwnedBy_ReturnsFalse_WhenTestingWipLimitHasBeenReached()
+        {
+            var player = 1;
+            
+            var board = Create.Board
+                .WithCardInDevelopmentOwnedBy(player)
+                .WithBlockedCardInTestingOwnedBy(player)
+                .WithTestingWipLimit(1)
+                .Please();
+            
+            var result = board.TryMoveCardOwnedBy(player);
+            
+            Assert.False(result);
+            board.AssertHasUnblockedCardInDevelopmentFor(player);
+            board.AssertHasBlockedCardInTestingFor(player);
+        }
+        
+        [Fact]
         public void TryUnblockCardOwnedBy_UnblocksCard_PlayersBlockedCardIsInDevelopment()
         {
             var player = 1;
@@ -98,7 +117,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void TryTakeNewCardForPlayer_TakesNewCard()
+        public void TryTakeNewCardForPlayer_TakesNewCard_WhenDevelopmentWipLimitHasNotBeenReached()
         {
             var player = 1;
             
@@ -108,6 +127,21 @@ namespace Featureban.Tests
             var result = board.TryTakeNewCardFor(player);
             Assert.True(result);
             board.AssertHasUnblockedCardInDevelopmentFor(player);
+        }
+
+        [Fact]
+        public void TryTakeNewCardForPlayer_ReturnsFalse_WhenDevelopmentWipLimitHasBeenReached()
+        {
+            var player = 1;
+            
+            var board = Create.Board
+                .WithDevelopmentWipLimit(1)
+                .WithCardInDevelopmentOwnedBy(player)
+                .Please();
+
+            var result = board.TryTakeNewCardFor(player);
+            Assert.False(result);
+            board.AssertInDevelopmentHasCardCount(1);
         }
 
         [Fact]

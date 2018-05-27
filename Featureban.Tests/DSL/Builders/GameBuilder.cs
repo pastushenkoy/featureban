@@ -5,7 +5,7 @@ namespace Featureban.Tests.DSL.Builders
 {
     internal class GameBuilder
     {
-        private Coin _coin = new Coin();
+        private ICoin _coin = new Coin();
         private int _playerCount = 2;
         private int developmentWipLimit;
         private int testingWipLimit;

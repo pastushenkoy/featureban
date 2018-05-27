@@ -44,5 +44,17 @@ namespace Featureban.Tests.DSL.Builders
             _testingCards.Add(Create.Card.BlockedBy(player).Please());
             return this;
         }
+
+        public BoardBuilder WithDevelopmentWipLimit(int developmentWipLimit)
+        {
+            _developmentWipLimit = developmentWipLimit;
+            return this;
+        }
+
+        public BoardBuilder WithTestingWipLimit(int testingWipLimit)
+        {
+            _testingWipLimit = testingWipLimit;
+            return this;
+        }
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Featureban.Tests.DSL.Helpers
 {
-    public class AlwaysTrueCoin : Coin
+    public class AlwaysTrueCoin : ICoin
     {
-        public override bool Flip()
+        public bool Flip()
         {
             return true;
         }

@@ -2,7 +2,7 @@
 
 namespace Featureban.Domain
 {
-    public class Coin
+    public class Coin : ICoin
     {
         private readonly Random _random;
 
@@ -11,7 +11,7 @@ namespace Featureban.Domain
             _random = new Random(42);
         }
 
-        public virtual bool Flip()
+        public bool Flip()
         {
             return Convert.ToBoolean(_random.Next(2));
         }

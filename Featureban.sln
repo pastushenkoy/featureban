@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Featureban.Domain", "Featur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Featureban.Tests", "Featureban.Tests\Featureban.Tests.csproj", "{B9F4DE7F-314D-41CA-9F97-C2A0C7550CA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fetureban.Simulator", "Fetureban.Simulator\Fetureban.Simulator.csproj", "{4E99664B-7650-4B64-AA53-8505360EAB1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B9F4DE7F-314D-41CA-9F97-C2A0C7550CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9F4DE7F-314D-41CA-9F97-C2A0C7550CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9F4DE7F-314D-41CA-9F97-C2A0C7550CA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E99664B-7650-4B64-AA53-8505360EAB1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E99664B-7650-4B64-AA53-8505360EAB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E99664B-7650-4B64-AA53-8505360EAB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E99664B-7650-4B64-AA53-8505360EAB1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
