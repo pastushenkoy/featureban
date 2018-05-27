@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Featureban.Tests.DSL.Helpers
 {
-    public class GameTestable : Game
+    internal class GameTestable : Game
     {
         public GameTestable(int playerCount, Coin coin) : base(playerCount, coin)
         {

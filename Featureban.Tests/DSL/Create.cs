@@ -2,8 +2,9 @@
 
 namespace Featureban.Tests.DSL
 {
-    public static class Create
+    internal static class Create
     {
         public static GameBuilder Game => new GameBuilder();
+        public static BoardBuilder Board => new BoardBuilder();
     }
 }

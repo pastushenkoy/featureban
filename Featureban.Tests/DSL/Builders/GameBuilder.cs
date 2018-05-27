@@ -3,7 +3,7 @@ using Featureban.Tests.DSL.Helpers;
 
 namespace Featureban.Tests.DSL.Builders
 {
-    public class GameBuilder
+    internal class GameBuilder
     {
         private Coin _coin = new Coin();
         private int _playerCount = 2;
