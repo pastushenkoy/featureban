@@ -2,7 +2,17 @@
 {
     internal class Card
     {
-        public bool Blocked { get; set; }
-        public int Player { get; set; }
+        public bool Blocked { get; private set; }
+        public int Player { get; }
+
+        public Card(int player)
+        {
+            Player = player;
+        }
+
+        public void Block()
+        {
+            Blocked = true;
+        }
     }
 }

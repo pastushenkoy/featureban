@@ -12,7 +12,9 @@ namespace Featureban.Domain
         {
             _cards = new List<Card>();
         }
-        
+
+        public int CardCount => _cards.Count;
+
         public bool HasUnblockedCardOwnedBy(int player)
         {
             return _cards.Any(card => !card.Blocked && card.Player == player);
