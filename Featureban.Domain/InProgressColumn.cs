@@ -6,10 +6,12 @@ namespace Featureban.Domain
 {
     internal class InProgressColumn
     {
+        private readonly int _wipLimit;
         private readonly List<Card> _cards;
 
-        public InProgressColumn()
+        public InProgressColumn(int wipLimit)
         {
+            _wipLimit = wipLimit;
             _cards = new List<Card>();
         }
 

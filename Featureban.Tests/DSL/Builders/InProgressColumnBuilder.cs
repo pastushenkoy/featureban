@@ -5,6 +5,7 @@ namespace Featureban.Tests.DSL.Builders
 {
     internal class InProgressColumnBuilder
     {
+        private int wipLimit;
         private List<Card> _cardsToAdd;
 
         public InProgressColumnBuilder()
@@ -14,7 +15,7 @@ namespace Featureban.Tests.DSL.Builders
         
         public InProgressColumn Please()
         {
-            var column = new InProgressColumn();
+            var column = new InProgressColumn(wipLimit);
 
             foreach (var card in _cardsToAdd)
             {

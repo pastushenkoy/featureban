@@ -5,7 +5,8 @@ namespace Featureban.Tests.DSL.Helpers
 {
     internal class GameTestable : Game
     {
-        public GameTestable(int playerCount, Coin coin) : base(playerCount, coin)
+        public GameTestable(int playerCount, Coin coin, int developmentWipLimit, int testingWipLimit) 
+            : base(playerCount, coin, developmentWipLimit, testingWipLimit)
         {
         }
 

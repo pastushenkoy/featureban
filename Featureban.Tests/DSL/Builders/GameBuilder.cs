@@ -7,6 +7,8 @@ namespace Featureban.Tests.DSL.Builders
     {
         private Coin _coin = new Coin();
         private int _playerCount = 2;
+        private int developmentWipLimit;
+        private int testingWipLimit;
         
         public GameBuilder WithAlwaysTrueCoin()
         {
@@ -22,7 +24,7 @@ namespace Featureban.Tests.DSL.Builders
 
         public GameTestable Please()
         {
-            var game = new GameTestable(_playerCount, _coin);
+            var game = new GameTestable(_playerCount, _coin, developmentWipLimit, testingWipLimit);
             return game;
         }
     }

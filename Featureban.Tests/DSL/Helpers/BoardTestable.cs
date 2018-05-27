@@ -5,24 +5,8 @@ namespace Featureban.Tests.DSL.Helpers
 {
     internal class BoardTestable : Board
     {
-        public void AddCardIntoTestingFor(int player)
+        public BoardTestable(int developmentWipLimit, int testingWipLimit) : base(developmentWipLimit, testingWipLimit)
         {
-            _testingColumn.AddCard(Create.Card.OwnedBy(player).Please());
-        }
-
-        public void AddCardIntoDevelopmentFor(int player)
-        {
-            _developmentColumn.AddCard(Create.Card.OwnedBy(player).Please());
-        }
-
-        public void AddBlockedCardIntoDevelopmentFor(int player)
-        {
-            _developmentColumn.AddCard(Create.Card.BlockedBy(player).Please());
-        }
-
-        public void AddBlockedCardIntoTestingFor(int player)
-        {
-            _testingColumn.AddCard(Create.Card.BlockedBy(player).Please());
         }
 
         public void AssertAllColumnsAreEmpty()
@@ -62,6 +46,16 @@ namespace Featureban.Tests.DSL.Helpers
         public void AssertHasBlockedCardInTestingFor(int player)
         {
             Assert.True(_testingColumn.HasBlockedCardOwnedBy(player));
+        }
+
+        public void AddCardIntoDevelopment(Card card)
+        {
+            _developmentColumn.AddCard(card);
+        }
+
+        public void AddCardIntoTesting(Card card)
+        {
+            _testingColumn.AddCard(card);
         }
     }
 }

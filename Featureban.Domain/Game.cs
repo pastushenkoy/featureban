@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices;
-
-namespace Featureban.Domain
+﻿namespace Featureban.Domain
 {
     public class Game
     {
@@ -17,14 +13,14 @@ namespace Featureban.Domain
         private int _playerCount { get; }
 
         
-        public Game(int playerCount, Coin coin)
+        public Game(int playerCount, Coin coin, int developmentWipLimit, int testingWipLimit)
         {
             _coin = coin;
             
             _playerCount = playerCount;
             _coinResults = new bool[playerCount];
             
-            _board = new Board();
+            _board = new Board(developmentWipLimit, testingWipLimit);
         }
 
         public void NextDay()

@@ -7,10 +7,10 @@
 
         public int DoneCardsCount { get; private set; }
         
-        public Board()
+        public Board(int developmentWipLimit, int testingWipLimit)
         {
-            _developmentColumn = new InProgressColumn();
-            _testingColumn = new InProgressColumn();
+            _developmentColumn = new InProgressColumn(developmentWipLimit);
+            _testingColumn = new InProgressColumn(testingWipLimit);
         }
         
         public bool TryMoveCardOwnedBy(int player)
