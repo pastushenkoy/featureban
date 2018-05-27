@@ -49,7 +49,13 @@ namespace Featureban.Domain
 
         public void UnblockCardOwnedBy(int player)
         {
-            throw new NotImplementedException();
+            var cardToUnblock = _cards.FirstOrDefault(card => card.Blocked && card.Player == player);
+            if (cardToUnblock == null)
+            {
+                throw new InvalidOperationException($"Can not get blocked card for player {player}");
+            }
+
+            cardToUnblock.Unblock();
         }
     }
 }

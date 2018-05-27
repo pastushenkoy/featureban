@@ -14,5 +14,10 @@
         {
             Blocked = true;
         }
+
+        public void Unblock()
+        {
+            Blocked = false;
+        }
     }
 }
