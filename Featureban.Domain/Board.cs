@@ -85,35 +85,5 @@
 
             return false;
         }
-	    
-	    public void MoveNearestCard()
-	    {
-		    var card=_testingColumn.ExtractNonBlockedCard();
-		    if (card != null)
-		    {
-			    _doneColumn.AddCard(card);
-			    return;
-		    }
-
-		    card = _testingColumn.ExtractBlockedCard();
-		    _testingColumn.UnlockCard(card);
-		    
-		    if (_testingColumn.HasPlaceForCard())
-		    {
-			    card = _developmentColumn.ExtractNonBlockedCard();
-			    if (card != null)
-			    {
-				    _testingColumn.AddCard(card);
-			    }
-		    }
-		    else
-		    {
-			    card = _developmentColumn.ExtractBlockedCard();
-			    if (card != null)
-			    {
-				    _developmentColumn.UnlockCard(card);
-			    }
-		    }
-	    }
     }
 }

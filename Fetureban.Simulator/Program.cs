@@ -7,7 +7,7 @@ namespace Fetureban.Simulator
     {
         static void Main(string[] args)
         {
-            var series = new Simulation(3, 15, 3, 20);
+            var series = new Simulation(5, 15, 1000, 20);
             series.Simulate();
             PrintResults(series);
         }
