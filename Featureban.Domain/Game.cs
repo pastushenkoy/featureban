@@ -32,11 +32,12 @@
         private void MakeMoves()
         {
             _savedWins = 0;
-            
+	       
             for (var player = 0; player < _playerCount; player++)
             {
                 if (Won(player))
                 {
+	                _board.TryMoveCardOwnedBy(player);
                     if (!_board.TryMoveCardOwnedBy(player)
                         && !_board.TryUnblockCardOwnedBy(player)
                         && !_board.TryTakeNewCardFor(player))

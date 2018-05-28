@@ -2,23 +2,29 @@
 {
     internal class Board
     {
+	    private readonly TodoColumn _todoColumn;
+	    
         protected readonly InProgressColumn _developmentColumn;
         protected readonly InProgressColumn _testingColumn;
 
-        public int DoneCardsCount { get; private set; }
+	    private readonly DoneColumn _doneColumn;
+
+	    public int DoneCardsCount => _doneColumn.CardCount;
         
         public Board(int developmentWipLimit, int testingWipLimit)
         {
-            _developmentColumn = new InProgressColumn(developmentWipLimit);
-            _testingColumn = new InProgressColumn(testingWipLimit);
+	        _todoColumn = new TodoColumn();
+	        _developmentColumn = new InProgressColumn(developmentWipLimit);
+	        _testingColumn = new InProgressColumn(testingWipLimit);
+	        _doneColumn = new DoneColumn();
         }
         
         public bool TryMoveCardOwnedBy(int player)
         {
             if (_testingColumn.HasUnblockedCardOwnedBy(player))
             {
-                _testingColumn.ExtractCardOwnedBy(player);
-                DoneCardsCount++;
+                var card = _testingColumn.ExtractCardOwnedBy(player);
+                _doneColumn.AddCard(card);
                 return true;
             }
 
@@ -28,6 +34,8 @@
                 _testingColumn.AddCard(card);
                 return true;
             }
+	        
+	        
 
             return false;
         }
@@ -53,7 +61,8 @@
         {
             if (_developmentColumn.HasPlaceForCard())
             {
-                _developmentColumn.AddCard(new Card(player));
+	            var card = _todoColumn.ExtractCardFor(player);
+                _developmentColumn.AddCard(card);
                 return true;
             }
 
@@ -76,5 +85,35 @@
 
             return false;
         }
+	    
+	    public void MoveNearestCard()
+	    {
+		    var card=_testingColumn.ExtractNonBlockedCard();
+		    if (card != null)
+		    {
+			    _doneColumn.AddCard(card);
+			    return;
+		    }
+
+		    card = _testingColumn.ExtractBlockedCard();
+		    _testingColumn.UnlockCard(card);
+		    
+		    if (_testingColumn.HasPlaceForCard())
+		    {
+			    card = _developmentColumn.ExtractNonBlockedCard();
+			    if (card != null)
+			    {
+				    _testingColumn.AddCard(card);
+			    }
+		    }
+		    else
+		    {
+			    card = _developmentColumn.ExtractBlockedCard();
+			    if (card != null)
+			    {
+				    _developmentColumn.UnlockCard(card);
+			    }
+		    }
+	    }
     }
 }
