@@ -174,5 +174,21 @@ namespace Featureban.Tests
             Assert.True(result);
             board.AssertHasBlockedCardInTestingFor(player);
         }
+
+	    [Fact]
+	    public void MoveNearestCard_Success()
+	    {
+		    var player = 1;
+            
+		    var board = Create.Board
+			    .WithCardInDevelopmentOwnedBy(player)
+			    .WithCardInTestingOwnedBy(player)
+			    .Please();
+
+		    board.MoveNearestCard();
+		    
+		    Assert.Equal(1,board.DoneCardsCount);
+
+	    }
     }
 }
