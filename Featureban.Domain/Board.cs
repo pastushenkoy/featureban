@@ -7,21 +7,24 @@
         protected readonly InProgressColumn _developmentColumn;
         protected readonly InProgressColumn _testingColumn;
 
-        public int DoneCardsCount { get; private set; }
+	    private readonly DoneColumn _doneColumn;
+
+	    public int DoneCardsCount => _doneColumn.CardCount;
         
         public Board(int developmentWipLimit, int testingWipLimit)
         {
 	        _todoColumn = new TodoColumn();
 	        _developmentColumn = new InProgressColumn(developmentWipLimit);
 	        _testingColumn = new InProgressColumn(testingWipLimit);
+	        _doneColumn = new DoneColumn();
         }
         
         public bool TryMoveCardOwnedBy(int player)
         {
             if (_testingColumn.HasUnblockedCardOwnedBy(player))
             {
-                _testingColumn.ExtractCardOwnedBy(player);
-                DoneCardsCount++;
+                var card = _testingColumn.ExtractCardOwnedBy(player);
+                _doneColumn.AddCard(card);
                 return true;
             }
 
