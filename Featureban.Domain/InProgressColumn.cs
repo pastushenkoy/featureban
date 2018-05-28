@@ -80,5 +80,21 @@ namespace Featureban.Domain
         {
             return _wipLimit == 0 || CardCount < _wipLimit;
         }
+
+	    public Card ExtractNonBlockedCard()
+	    { 
+		    return _cards.FirstOrDefault(c => !c.Blocked);
+	    }
+
+	    public Card ExtractBlockedCard()
+	    {
+		    return _cards.FirstOrDefault(c => c.Blocked);
+	    }
+
+	    public void UnlockCard(Card card)
+	    {
+		    var cardInColumn = _cards.FirstOrDefault(c => c.Blocked && c.Player == card.Player);
+		    cardInColumn.Unblock();
+	    }
     }
 }

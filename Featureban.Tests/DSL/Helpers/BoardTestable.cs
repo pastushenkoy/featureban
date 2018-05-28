@@ -62,5 +62,7 @@ namespace Featureban.Tests.DSL.Helpers
         {
             _testingColumn.AddCard(card);
         }
+
+	
     }
 }
