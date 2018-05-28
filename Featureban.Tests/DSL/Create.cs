@@ -9,5 +9,6 @@ namespace Featureban.Tests.DSL
 
         public static InProgressColumnBuilder InProgressColumn => new InProgressColumnBuilder();
         public static CardBuilder Card => new CardBuilder();
+	    public static TodoColumnBuilder ToDoColumn => new TodoColumnBuilder();
     }
 }

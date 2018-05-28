@@ -2,6 +2,8 @@
 {
     internal class Board
     {
+	    private readonly TodoColumn _todoColumn;
+	    
         protected readonly InProgressColumn _developmentColumn;
         protected readonly InProgressColumn _testingColumn;
 
@@ -9,8 +11,9 @@
         
         public Board(int developmentWipLimit, int testingWipLimit)
         {
-            _developmentColumn = new InProgressColumn(developmentWipLimit);
-            _testingColumn = new InProgressColumn(testingWipLimit);
+	        _todoColumn = new TodoColumn();
+	        _developmentColumn = new InProgressColumn(developmentWipLimit);
+	        _testingColumn = new InProgressColumn(testingWipLimit);
         }
         
         public bool TryMoveCardOwnedBy(int player)
@@ -53,7 +56,8 @@
         {
             if (_developmentColumn.HasPlaceForCard())
             {
-                _developmentColumn.AddCard(new Card(player));
+	            var card = _todoColumn.ExtractCardFor(player);
+                _developmentColumn.AddCard(card);
                 return true;
             }
 
