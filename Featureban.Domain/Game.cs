@@ -8,7 +8,7 @@
 		private readonly Board _board;
 		private int _savedWins;
 
-		public int Throughout => _board.DoneCardsCount;
+		public int Throughput => _board.DoneCardsCount;
 
 		private int _playerCount { get; }
 
@@ -22,6 +22,8 @@
 
 			_board = new Board(developmentWipLimit, testingWipLimit);
 		}
+
+
 
 		public void NextDay()
 		{
@@ -74,11 +76,6 @@
 			}
 
 			return true;
-		}
-
-		private void SaveWinForNextPlayer()
-		{
-			_savedWins++;
 		}
 
 		private bool Won(int player)

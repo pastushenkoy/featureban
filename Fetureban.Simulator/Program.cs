@@ -16,7 +16,7 @@ namespace Fetureban.Simulator
         {
             foreach (var point in series)
             {
-                Console.WriteLine($"{point.WipLimit} : {point.Throughout:#.##}");
+                Console.WriteLine($"{point.WipLimit} : {point.Throughput:#.##}");
             }
         }
     }

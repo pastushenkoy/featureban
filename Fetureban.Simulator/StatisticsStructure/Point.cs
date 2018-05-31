@@ -3,12 +3,12 @@
     public class Point
     {
         public int WipLimit { get; }
-        public double Throughout { get; }
+        public double Throughput { get; }
 
-        public Point(int wipLimit, double throughout)
+        public Point(int wipLimit, double throughput)
         {
             WipLimit = wipLimit;
-            Throughout = throughout;
+            Throughput = throughput;
         }
     }
 }

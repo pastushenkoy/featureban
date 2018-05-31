@@ -38,23 +38,23 @@ namespace Fetureban.Simulator.StatisticsStructure
         {
             for (var wipLimit = 0; wipLimit <= _wipLimitMax; wipLimit++)
             {
-                _points[wipLimit] = new Point(wipLimit, GetAverageThroughout(wipLimit)); 
+                _points[wipLimit] = new Point(wipLimit, GetAverageThroughput(wipLimit));
             }
         }
 
-        private double GetAverageThroughout(int wipLimit)
+        private double GetAverageThroughput(int wipLimit)
         {
-            var throughout = 0d;
-            
+            var throughput = 0d;
+
             for (var i = 0; i < _iterationsPerPoint; i++)
             {
-                throughout += GetThroughout(_coin, wipLimit);
+                throughput += GetThroughput(_coin, wipLimit);
             }
 
-            return throughout / _iterationsPerPoint;
+            return throughput / _iterationsPerPoint;
         }
 
-        private int GetThroughout(Coin coin, int wipLimit)
+        private int GetThroughput(Coin coin, int wipLimit)
         {
             var game = new Game(_playerCount, coin, wipLimit, wipLimit);
             for (var day = 1; day <= _dayCount; day++)
@@ -62,7 +62,7 @@ namespace Fetureban.Simulator.StatisticsStructure
                 game.NextDay();
             }
 
-            return game.Throughout;
+            return game.Throughput;
         }
     }
 }
