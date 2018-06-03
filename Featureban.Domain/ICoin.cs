@@ -1,6 +1,6 @@
 ﻿namespace Featureban.Domain
 {
-    public interface ICoin
+    internal interface ICoin
     {
         bool Flip();
     }

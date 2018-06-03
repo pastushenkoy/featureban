@@ -36,11 +36,6 @@ namespace Featureban.Domain
 
         public void AddCard(Card card)
         {
-            if (_cards.Contains(card))
-            {
-                throw new ArgumentException("Card is already in list");
-            }
-
             if (!HasPlaceForCard())
             {
                 throw new InvalidOperationException($"Wip limit has been reached");

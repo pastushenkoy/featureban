@@ -1,7 +1,7 @@
 ﻿namespace Featureban.Domain
 {
-    internal class Board
-    {
+	internal class Board : IBoard
+	{
 	    private readonly TodoColumn _todoColumn;
 	    
         protected readonly InProgressColumn _developmentColumn;
@@ -10,8 +10,8 @@
 	    private readonly DoneColumn _doneColumn;
 
 	    public int DoneCardsCount => _doneColumn.CardCount;
-        
-        public Board(int developmentWipLimit, int testingWipLimit)
+
+	    public Board(int developmentWipLimit, int testingWipLimit)
         {
 	        _todoColumn = new TodoColumn();
 	        _developmentColumn = new InProgressColumn(developmentWipLimit);
@@ -85,35 +85,5 @@
 
             return false;
         }
-	    
-	    public void MoveNearestCard()
-	    {
-		    var card=_testingColumn.ExtractNonBlockedCard();
-		    if (card != null)
-		    {
-			    _doneColumn.AddCard(card);
-			    return;
-		    }
-
-		    card = _testingColumn.ExtractBlockedCard();
-		    _testingColumn.UnlockCard(card);
-		    
-		    if (_testingColumn.HasPlaceForCard())
-		    {
-			    card = _developmentColumn.ExtractNonBlockedCard();
-			    if (card != null)
-			    {
-				    _testingColumn.AddCard(card);
-			    }
-		    }
-		    else
-		    {
-			    card = _developmentColumn.ExtractBlockedCard();
-			    if (card != null)
-			    {
-				    _developmentColumn.UnlockCard(card);
-			    }
-		    }
-	    }
-    }
+	}
 }

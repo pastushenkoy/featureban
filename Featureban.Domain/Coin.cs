@@ -2,7 +2,7 @@
 
 namespace Featureban.Domain
 {
-    public class Coin : ICoin
+    internal class Coin : ICoin
     {
         private readonly Random _random;
 

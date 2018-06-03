@@ -46,17 +46,6 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void AddCard_ThrowsException_WhenTryToAddAlreadyAddedCard()
-        {
-            var column = Create.InProgressColumn.Please();
-            var card = Create.Card.Please();
-            
-            column.AddCard(card);
-
-            Assert.Throws<ArgumentException>(() => column.AddCard(card));
-        }
-
-        [Fact]
         public void HasUnblockedCardOwnedByPlayer_ReturnsTrue_WhenUnblockedCardOwnedByPlayerIsInColumn()
         {
             var player = 1;
@@ -93,17 +82,18 @@ namespace Featureban.Tests
         [Fact]
         public void ExtractCardOwnedBy_ExtractsCard_WhenUnbockedCardOwnedByPlayerIsInColumn()
         {
-            var player = 1;
+            const int player = 1;
+            var expectedCard = Create.Card
+                .OwnedBy(player)
+                .Please();
+
             var column = Create.InProgressColumn
                 .WithCardFor(player)
                 .Please();
 
-            var extractedCard = column.ExtractCardOwnedBy(player);
+            var cardFromColumn = column.ExtractCardOwnedBy(player);
             
-            Assert.NotNull(extractedCard);
-            Assert.Equal(player, extractedCard.Player);
-            Assert.False(extractedCard.Blocked);
-            Assert.Equal(0, column.CardCount);
+            Assert.Equal(expectedCard, cardFromColumn);
         }
 
         [Fact]

@@ -22,7 +22,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void TryMoveCardOwnedBy_MovesCardToTesting_PlayersCardIsInDevelopment()
+        public void TryMoveCardOwnedBy_MovesCardToTesting_WhenPlayerHasCardInDevelopment()
         {
             var player = 1;
             
@@ -37,7 +37,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void TryMoveCardOwnedBy_ReturnsFalse_PlayerHasNoCardsInBoard()
+        public void TryMoveCardOwnedBy_ReturnsFalse_WhenPlayerHasNoCardsInBoard()
         {
             var player = 1;
             
@@ -51,7 +51,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void TryMoveCardOwnedBy_MovesCardFromTestingToDone_PlayersCardsAreInTestingAndDevelopment()
+        public void TryMoveCardOwnedBy_MovesCardFromTestingToDone_WhenPlayerHasCardsInTestingAndDevelopment()
         {
             var player = 1;
             
@@ -85,7 +85,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void TryUnblockCardOwnedBy_UnblocksCard_PlayersBlockedCardIsInDevelopment()
+        public void TryUnblockCardOwnedBy_UnblocksCard_WhenPlayerHasBlockedCardInDevelopment()
         {
             var player = 1;
             
@@ -100,7 +100,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void TryUnblockCardOwnedBy_UnblocksCardInTesting_PlayersBlockedCardsAreInTestingAndDevelopment()
+        public void TryUnblockCardOwnedBy_UnblocksCardInTesting_WhenPlayerHasBlockedCardInTestingAndDevelopment()
         {
             var player = 1;
             
@@ -145,7 +145,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void BlockCardOwnedBy_BlocksCard_PlayerHasUnblockedCardsInDevelopment()
+        public void BlockCardOwnedBy_BlocksCard_WhenPlayerHasUnblockedCardInDevelopment()
         {
             var player = 1;
             
@@ -160,7 +160,7 @@ namespace Featureban.Tests
         }
         
         [Fact]
-        public void BlockCardOwnedBy_BlocksCardInTesting_PlayerHasUnblockedCardsInDevelopmentAndInTesting()
+        public void BlockCardOwnedBy_BlocksCardInTesting_WhenPlayerHasUnblockedCardsInDevelopmentAndInTesting()
         {
             var player = 1;
             
@@ -174,21 +174,5 @@ namespace Featureban.Tests
             Assert.True(result);
             board.AssertHasBlockedCardInTestingFor(player);
         }
-
-	    [Fact]
-	    public void MoveNearestCard_Success()
-	    {
-		    var player = 1;
-            
-		    var board = Create.Board
-			    .WithCardInDevelopmentOwnedBy(player)
-			    .WithCardInTestingOwnedBy(player)
-			    .Please();
-
-		    board.MoveNearestCard();
-		    
-		    Assert.Equal(1,board.DoneCardsCount);
-
-	    }
     }
 }

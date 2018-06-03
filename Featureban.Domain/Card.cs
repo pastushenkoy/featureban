@@ -19,5 +19,19 @@
         {
             Blocked = false;
         }
+
+        public override bool Equals(object o)
+        {
+            if (o is null || o.GetType() != GetType())
+                return false;
+
+            return Equals((Card) o);
+        }
+
+        private bool Equals(Card anotherCard)
+        {
+            return Player == anotherCard.Player
+                   && Blocked == anotherCard.Blocked;
+        }
     }
 }

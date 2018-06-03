@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Featureban.Domain;
+using Fetureban.Simulator.StatisticsStructure;
 
-namespace Fetureban.Simulator.StatisticsStructure
+namespace Featureban.Statistics
 {
     public class Simulation : IEnumerable<Point>
     {
+        private readonly IGameFactory _gameFactory;
         private readonly int _playerCount;
         private readonly int _dayCount;
         private readonly int _iterationsPerPoint;
-        private readonly int _wipLimitMax;
+        private readonly int _pointsCount;
         private readonly Point[] _points;
-        private readonly Coin _coin;
 
         public IEnumerator<Point> GetEnumerator()
         {
@@ -24,19 +24,19 @@ namespace Fetureban.Simulator.StatisticsStructure
             return GetEnumerator();
         }
 
-        public Simulation(int playerCount, int dayCount, int iterationsPerPoint, int wipLimitMax)
+        public Simulation(IGameFactory gameFactory, int playerCount, int dayCount, int iterationsPerPoint, int pointsCount)
         {
+            _gameFactory = gameFactory;
             _playerCount = playerCount;
             _dayCount = dayCount;
             _iterationsPerPoint = iterationsPerPoint;
-            _wipLimitMax = wipLimitMax;
-            _points = new Point[_wipLimitMax + 1];
-            _coin = new Coin();
+            _pointsCount = pointsCount;
+            _points = new Point[_pointsCount];
         }
 
         public void Simulate()
         {
-            for (var wipLimit = 0; wipLimit <= _wipLimitMax; wipLimit++)
+            for (var wipLimit = 0; wipLimit < _pointsCount; wipLimit++)
             {
                 _points[wipLimit] = new Point(wipLimit, GetAverageThroughput(wipLimit));
             }
@@ -48,21 +48,18 @@ namespace Fetureban.Simulator.StatisticsStructure
 
             for (var i = 0; i < _iterationsPerPoint; i++)
             {
-                throughput += GetThroughput(_coin, wipLimit);
+                throughput += GetThroughput(wipLimit);
             }
 
             return throughput / _iterationsPerPoint;
         }
 
-        private int GetThroughput(Coin coin, int wipLimit)
+        private int GetThroughput(int wipLimit)
         {
-            var game = new Game(_playerCount, coin, wipLimit, wipLimit);
-            for (var day = 1; day <= _dayCount; day++)
-            {
-                game.NextDay();
-            }
+            var game = _gameFactory.Create(_playerCount, wipLimit, wipLimit);
+            game.DaysPassed(_dayCount);
 
-            return game.Throughput;
+            return game.DoneCardsCount;
         }
     }
 }
