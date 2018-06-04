@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Featureban.Domain;
 using Featureban.Tests.DSL.Helpers;
 using Moq;
@@ -16,8 +17,14 @@ namespace Featureban.Tests.DSL.Builders
 
         private bool _resultOfTryMoveCardOwnedBy;
         private bool _resultOfTryUnblockCardOwnedBy;
-        private bool _resultTryTakeNewCardFor;
 
+        private readonly List<int> _playersWithMovableCards = new List<int>();
+        
+        private bool _resultTryTakeNewCardFor;
+        private bool[] _coinResults;
+
+        
+        
         public GameBuilder WithAlwaysWinCoin()
         {
             _coinType = CoinType.AlwaysWin;
@@ -27,6 +34,13 @@ namespace Featureban.Tests.DSL.Builders
         public GameBuilder WithAlwaysLooseCoin()
         {
             _coinType = CoinType.AlwaysLoose;
+            return this;
+        }
+
+        public GameBuilder WithCoinResults(params bool[] coinResults)
+        {
+            _coinType = CoinType.PreSet;
+            _coinResults = coinResults;
             return this;
         }
 
@@ -56,6 +70,12 @@ namespace Featureban.Tests.DSL.Builders
                 case CoinType.AlwaysWin:
                     coinMock.Setup(coin => coin.Flip()).Returns(true);
                     break;
+                case CoinType.PreSet:
+                    var sequence = coinMock.SetupSequence(coin => coin.Flip());
+                    foreach (var coinResult in _coinResults)
+                        sequence.Returns(coinResult);
+                    
+                    break;
             }
 
             return coinMock;
@@ -76,6 +96,13 @@ namespace Featureban.Tests.DSL.Builders
             boardMock
                 .Setup(board => board.TryTakeNewCardFor(It.IsAny<int>()))
                 .Returns(_resultTryTakeNewCardFor);
+
+            foreach (var player in _playersWithMovableCards)
+            {
+                boardMock
+                    .Setup(board => board.TryMoveCardOwnedBy(player))
+                    .Returns(true);
+            }
             
             return boardMock;
         }
@@ -107,10 +134,17 @@ namespace Featureban.Tests.DSL.Builders
             return this;
         }
 
+        public GameBuilder WithMovableCardsFor(int secondPlayer)
+        {
+            _playersWithMovableCards.Add(secondPlayer);            
+            return this;
+        }
+
         private enum CoinType
         {
             AlwaysWin,
-            AlwaysLoose
+            AlwaysLoose,
+            PreSet
         }
     }
 }

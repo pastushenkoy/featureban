@@ -29,14 +29,14 @@ namespace Featureban.Tests.DSL.Helpers
             GenerateCoinResults();
         }
 
-        public void AssertWinMoveWasCalledBy(int player)
+        public void AssertWinMoveWasCalledFor(int player)
         {
             TryMoveCardOwnedByWasCalled(player, 1);
             TryUnblockCardOwnedByWasCalled(player, 1);
             TryTakeNewCardForWasCalled(player, 1);
         }
 
-        public void AssertWinMoveWasCalledTwiceBy(int player)
+        public void AssertWinMoveWasCalledTwiceFor(int player)
         {
             TryMoveCardOwnedByWasCalled(player, 2);
             TryUnblockCardOwnedByWasCalled(player, 2);
@@ -71,6 +71,13 @@ namespace Featureban.Tests.DSL.Helpers
             TryUnblockCardOwnedByWasCalled(player, 1);
             TryTakeNewCardForWasCalled(player, 1);
             TryBlockCardOwnedByWasCalled(player, 0);
+        }
+
+        public void AssertWinMoveWasNotCalledFor(int player)
+        {
+            TryMoveCardOwnedByWasCalled(player, 0);
+            TryUnblockCardOwnedByWasCalled(player, 0);
+            TryTakeNewCardForWasCalled(player, 0);
         }
 
         private void TryTakeNewCardForWasCalled(int player, int count)

@@ -31,7 +31,7 @@ namespace Featureban.Tests
 
             game.NextDay();
 
-            game.AssertWinMoveWasCalledBy(player);
+            game.AssertWinMoveWasCalledFor(player);
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace Featureban.Tests
         }
 
         [Fact]
-        public void WhenPlayerHasNothingToDo_HeGivesHisWinToAnotherPlayer()
+        public void WhenPlayerWinsAndHasNothingToDo_HeGivesHisWinToAnotherPlayer()
         {
             const int secondPlayer = 1;
             var game = Create.Game
@@ -60,7 +60,7 @@ namespace Featureban.Tests
             
             game.NextDay();
             
-            game.AssertWinMoveWasCalledTwiceBy(secondPlayer);
+            game.AssertWinMoveWasCalledTwiceFor(secondPlayer);
         }
 
         [Fact]
@@ -106,6 +106,24 @@ namespace Featureban.Tests
             game.NextDay();
 
             game.AssertPlayerTakesOneMoreCardOnWinMove(player);
+        }
+        
+        [Fact]
+        public void WhenPlayerWinsAndHasNothingToDo_HeGivesHisWinToOnlyOnePlayer()
+        {
+            const int secondPlayer = 1;
+            const int thirdPlayer = 2;
+            
+            var game = Create.Game
+                .WithCoinResults(true, false, false)
+                .WithPlayerCount(3)
+                .WithMovableCardsFor(secondPlayer)
+                .Please();
+            
+            game.NextDay();
+            
+            game.AssertPlayerOnlyMovesCard(secondPlayer);
+            game.AssertWinMoveWasNotCalledFor(thirdPlayer);
         }
     }
 }
