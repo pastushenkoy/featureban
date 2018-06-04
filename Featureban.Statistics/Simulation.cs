@@ -7,11 +7,12 @@ namespace Featureban.Statistics
 {
     public class Simulation : IEnumerable<Point>
     {
+        public int PlayerCount { get; }
+        public int DayCount { get; }
+        public int IterationsPerPoint { get; }
+        public int PointsCount { get; }
+        
         private readonly IGameFactory _gameFactory;
-        private readonly int _playerCount;
-        private readonly int _dayCount;
-        private readonly int _iterationsPerPoint;
-        private readonly int _pointsCount;
         private readonly Point[] _points;
 
         public IEnumerator<Point> GetEnumerator()
@@ -27,16 +28,18 @@ namespace Featureban.Statistics
         public Simulation(IGameFactory gameFactory, int playerCount, int dayCount, int iterationsPerPoint, int pointsCount)
         {
             _gameFactory = gameFactory;
-            _playerCount = playerCount;
-            _dayCount = dayCount;
-            _iterationsPerPoint = iterationsPerPoint;
-            _pointsCount = pointsCount;
-            _points = new Point[_pointsCount];
+            
+            PlayerCount = playerCount;
+            DayCount = dayCount;
+            IterationsPerPoint = iterationsPerPoint;
+            PointsCount = pointsCount;
+            
+            _points = new Point[PointsCount];
         }
 
         public void Simulate()
         {
-            for (var wipLimit = 0; wipLimit < _pointsCount; wipLimit++)
+            for (var wipLimit = 0; wipLimit < PointsCount; wipLimit++)
             {
                 _points[wipLimit] = new Point(wipLimit, GetAverageThroughput(wipLimit));
             }
@@ -46,18 +49,18 @@ namespace Featureban.Statistics
         {
             var throughput = 0d;
 
-            for (var i = 0; i < _iterationsPerPoint; i++)
+            for (var i = 0; i < IterationsPerPoint; i++)
             {
                 throughput += GetThroughput(wipLimit);
             }
 
-            return throughput / _iterationsPerPoint;
+            return throughput / IterationsPerPoint;
         }
 
         private int GetThroughput(int wipLimit)
         {
-            var game = _gameFactory.Create(_playerCount, wipLimit, wipLimit);
-            game.DaysPassed(_dayCount);
+            var game = _gameFactory.Create(PlayerCount, wipLimit, wipLimit);
+            game.DaysPassed(DayCount);
 
             return game.DoneCardsCount;
         }

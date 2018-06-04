@@ -25,6 +25,12 @@ namespace Fetureban.Simulator
             const int throughputColumnWidth = 10;
             var delimiter = new string('-', wipColumnWidth + throughputColumnWidth + 7);
 
+            Console.WriteLine($"Players: {series.PlayerCount}");
+            Console.WriteLine($"Days: {series.DayCount}");
+            Console.WriteLine($"Points: {series.PointsCount}");
+            Console.WriteLine($"Iterations per point: {series.IterationsPerPoint}");
+            Console.WriteLine();
+            
             Console.WriteLine(delimiter);
             Console.WriteLine($"| {"Wip", wipColumnWidth} | {"Throughput", throughputColumnWidth} |");
             Console.WriteLine(delimiter);

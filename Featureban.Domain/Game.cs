@@ -71,7 +71,7 @@
         {
             
             var result = Board.TryBlockCardOwnedBy(player)
-                && Board.TryTakeNewCardFor(player);
+                & Board.TryTakeNewCardFor(player);
 
             if (result)
             {

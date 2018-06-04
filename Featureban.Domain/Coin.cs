@@ -8,7 +8,7 @@ namespace Featureban.Domain
 
         public Coin()
         {
-            _random = new Random(42);
+            _random = new Random();
         }
 
         public bool Flip()

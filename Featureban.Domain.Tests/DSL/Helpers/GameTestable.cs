@@ -31,71 +31,70 @@ namespace Featureban.Tests.DSL.Helpers
 
         public void AssertWinMoveWasCalledFor(int player)
         {
-            TryMoveCardOwnedByWasCalled(player, 1);
-            TryUnblockCardOwnedByWasCalled(player, 1);
-            TryTakeNewCardForWasCalled(player, 1);
+            WasCalledTryMoveCardOwnedBy(player, 1);
+            WasCalledTryUnblockCardOwnedBy(player, 1);
+            WasCalledTryTakeNewCardFor(player, 1);
         }
 
         public void AssertWinMoveWasCalledTwiceFor(int player)
         {
-            TryMoveCardOwnedByWasCalled(player, 2);
-            TryUnblockCardOwnedByWasCalled(player, 2);
-            TryTakeNewCardForWasCalled(player, 2);
+            WasCalledTryMoveCardOwnedBy(player, 2);
+            WasCalledTryUnblockCardOwnedBy(player, 2);
+            WasCalledTryTakeNewCardFor(player, 2);
         }
 
         public void AssertLooseMoveWasCalledBy(int player)
         {
-            TryBlockCardOwnedByWasCalled(player, 1);
-            TryTakeNewCardForWasCalled(player, 1);
+            WasCalledTryBlockCardOwnedBy(player, 1);
+            WasCalledTryTakeNewCardFor(player, 1);
         }
 
         public void AssertPlayerOnlyMovesCard(int player)
         {
-            TryMoveCardOwnedByWasCalled(player, 1);
-            TryUnblockCardOwnedByWasCalled(player, 0);
-            TryTakeNewCardForWasCalled(player, 0);
-            TryBlockCardOwnedByWasCalled(player, 0);
+            WasCalledTryMoveCardOwnedBy(player, 1);
+            WasCalledTryUnblockCardOwnedBy(player, 0);
+            WasCalledTryTakeNewCardFor(player, 0);
+            WasCalledTryBlockCardOwnedBy(player, 0);
         }
 
         public void AssertPlayerOnlyUnblocksCard(int player)
         {
-            TryMoveCardOwnedByWasCalled(player, 1);
-            TryUnblockCardOwnedByWasCalled(player, 1);
-            TryTakeNewCardForWasCalled(player, 0);
-            TryBlockCardOwnedByWasCalled(player, 0);
+            WasCalledTryMoveCardOwnedBy(player, 1);
+            WasCalledTryUnblockCardOwnedBy(player, 1);
+            WasCalledTryTakeNewCardFor(player, 0);
+            WasCalledTryBlockCardOwnedBy(player, 0);
         }
 
         public void AssertPlayerTakesOneMoreCardOnWinMove(int player)
         {
-            TryMoveCardOwnedByWasCalled(player, 1);
-            TryUnblockCardOwnedByWasCalled(player, 1);
-            TryTakeNewCardForWasCalled(player, 1);
-            TryBlockCardOwnedByWasCalled(player, 0);
+            WasCalledTryMoveCardOwnedBy(player, 1);
+            WasCalledTryUnblockCardOwnedBy(player, 1);
+            WasCalledTryTakeNewCardFor(player, 1);
+            WasCalledTryBlockCardOwnedBy(player, 0);
         }
 
         public void AssertWinMoveWasNotCalledFor(int player)
         {
-            TryMoveCardOwnedByWasCalled(player, 0);
-            TryUnblockCardOwnedByWasCalled(player, 0);
-            TryTakeNewCardForWasCalled(player, 0);
+            WasCalledTryMoveCardOwnedBy(player, 0);
+            WasCalledTryUnblockCardOwnedBy(player, 0);
         }
 
-        private void TryTakeNewCardForWasCalled(int player, int count)
+        private void WasCalledTryTakeNewCardFor(int player, int count)
         {
             _boardMock.Verify(board => board.TryTakeNewCardFor(player), Times.Exactly(count));
         }
 
-        private void TryUnblockCardOwnedByWasCalled(int player, int count)
+        private void WasCalledTryUnblockCardOwnedBy(int player, int count)
         {
             _boardMock.Verify(board => board.TryUnblockCardOwnedBy(player), Times.Exactly(count));
         }
 
-        private void TryMoveCardOwnedByWasCalled(int player, int count)
+        private void WasCalledTryMoveCardOwnedBy(int player, int count)
         {
             _boardMock.Verify(board => board.TryMoveCardOwnedBy(player), Times.Exactly(count));
         }
 
-        private void TryBlockCardOwnedByWasCalled(int player, int count)
+        private void WasCalledTryBlockCardOwnedBy(int player, int count)
         {
             _boardMock.Verify(board => board.TryBlockCardOwnedBy(player), Times.Exactly(count));
         }
